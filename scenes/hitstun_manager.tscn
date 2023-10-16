@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcp1cbllk6ekm"]
+
+[ext_resource type="Script" path="res://scenes/levels/HitstunManager.gd" id="1_qmdig"]
+
+[node name="HitstunManager" type="Node"]
+process_mode = 3
+script = ExtResource("1_qmdig")
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 3
+one_shot = true
+
+[connection signal="DO_HITSTUN" from="." to="." method="_on_do_hitstun"]

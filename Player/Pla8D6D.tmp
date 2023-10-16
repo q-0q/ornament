@@ -1,0 +1,118 @@
+[gd_scene load_steps=19 format=3 uid="uid://bgn4ui30ou8ox"]
+
+[ext_resource type="Script" path="res://Player/Player.gd" id="1_hot88"]
+[ext_resource type="Texture2D" uid="uid://cgfil18o5gmrp" path="res://icon.svg" id="2_psmjh"]
+[ext_resource type="Script" path="res://Player/FSM.gd" id="3_4dmle"]
+[ext_resource type="Script" path="res://Player/FallFromAir.gd" id="4_3qf32"]
+[ext_resource type="Script" path="res://Player/Rise.gd" id="5_u8ksi"]
+[ext_resource type="Script" path="res://Player/Run.gd" id="6_apoin"]
+[ext_resource type="Script" path="res://Player/Idle.gd" id="7_id7nv"]
+[ext_resource type="Script" path="res://Player/FallFromGround.gd" id="8_dmcvx"]
+[ext_resource type="Script" path="res://Player/LedgeMount.gd" id="9_d0ajb"]
+[ext_resource type="Script" path="res://Player/GroundDash.gd" id="10_vwrh2"]
+[ext_resource type="Script" path="res://Player/AirDash.gd" id="11_6obtf"]
+[ext_resource type="Script" path="res://Player/WallStick.gd" id="12_db57n"]
+[ext_resource type="Script" path="res://Player/WallRise.gd" id="13_mqygf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_73asn"]
+
+[sub_resource type="Curve" id="Curve_lui7i"]
+_data = [Vector2(0, 0), 0.0, 0.38657, 0, 0, Vector2(1, 1), 1.6193, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_2ahxv"]
+_data = [Vector2(0, 1), 0.0, -1.3079, 0, 0, Vector2(0.739437, 0.526316), -0.747368, -0.747368, 0, 0, Vector2(1, 0), -0.574899, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_r7odb"]
+_data = [Vector2(0, 1), 0.0, -0.522449, 0, 0, Vector2(1, 0), -1.89714, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_72u63"]
+_data = [Vector2(0, 0), 0.0, -0.0767123, 0, 0, Vector2(1, 0.978947), 2.59048, 0.0, 0, 0]
+point_count = 2
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_hot88")
+
+[node name="MiddleCast" type="RayCast2D" parent="."]
+target_position = Vector2(50, 0)
+
+[node name="BottomCast" type="RayCast2D" parent="."]
+position = Vector2(0, 10)
+target_position = Vector2(50, 0)
+
+[node name="TopCast" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+target_position = Vector2(50, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_73asn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_psmjh")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -10)
+zoom = Vector2(4.65, 4.65)
+position_smoothing_enabled = true
+position_smoothing_speed = 12.0
+
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("default_state", "Player")]
+script = ExtResource("3_4dmle")
+coyote_time = 0.08
+default_state = NodePath("Idle")
+Player = NodePath("..")
+
+[node name="FallFromAir" type="Node" parent="FSM"]
+script = ExtResource("4_3qf32")
+fall_speed = 250.0
+time_to_max_fall_speed = 0.3
+velocity_curve = SubResource("Curve_lui7i")
+air_speed = 110.0
+
+[node name="Rise" type="Node" parent="FSM"]
+script = ExtResource("5_u8ksi")
+jump_strength = 190.0
+jump_time = 0.4
+velocity_curve = SubResource("Curve_2ahxv")
+
+[node name="Run" type="Node" parent="FSM"]
+script = ExtResource("6_apoin")
+run_speed = 110.0
+
+[node name="Idle" type="Node" parent="FSM"]
+script = ExtResource("7_id7nv")
+
+[node name="FallFromGround" type="Node" parent="FSM"]
+script = ExtResource("8_dmcvx")
+
+[node name="LedgeMount" type="Node" parent="FSM"]
+script = ExtResource("9_d0ajb")
+mount_speed = 100
+
+[node name="GroundDash" type="Node" parent="FSM"]
+script = ExtResource("10_vwrh2")
+dash_strength = 280.0
+dash_time = 0.2
+velocity_curve = SubResource("Curve_r7odb")
+
+[node name="AirDash" type="Node" parent="FSM"]
+script = ExtResource("11_6obtf")
+
+[node name="WallRise" type="Node" parent="FSM"]
+script = ExtResource("13_mqygf")
+
+[node name="WallStick" type="Node" parent="FSM"]
+script = ExtResource("12_db57n")
+fall_speed = 85.0
+time_to_max_fall_speed = 0.2
+velocity_curve = SubResource("Curve_72u63")
+
+[node name="debug_text" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -35.0
+offset_right = 20.0
+offset_bottom = -9.0
+text = "test"

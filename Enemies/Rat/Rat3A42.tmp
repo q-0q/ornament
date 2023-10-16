@@ -1,0 +1,305 @@
+[gd_scene load_steps=24 format=3 uid="uid://dx87eub5cyu17"]
+
+[ext_resource type="Script" path="res://Enemies/EnemyFSMDriver.gd" id="1_ebusu"]
+[ext_resource type="Script" path="res://Enemies/Rat/RatStates.gd" id="2_2ah7c"]
+[ext_resource type="Script" path="res://Player/AnimationQueue.gd" id="2_8fp0n"]
+[ext_resource type="Texture2D" uid="uid://deokb4nbkpvpw" path="res://Enemies/Rat/9ffcff7959f71c2334d304b9a6912336.png" id="3_pwfqg"]
+[ext_resource type="Script" path="res://Enemies/Fall.gd" id="3_w00el"]
+[ext_resource type="Script" path="res://Enemies/Rat/Idle.gd" id="4_gv5sb"]
+[ext_resource type="Script" path="res://Enemies/Rat/Walk.gd" id="5_seiv5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_008og"]
+size = Vector2(32, 12)
+
+[sub_resource type="Animation" id="Animation_06gl4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_f50jc"]
+resource_name = "fall1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [13]
+}
+
+[sub_resource type="Animation" id="Animation_74mwx"]
+resource_name = "fall2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+
+[sub_resource type="Animation" id="Animation_us6kq"]
+resource_name = "fall3"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+
+[sub_resource type="Animation" id="Animation_aeshu"]
+resource_name = "grounddash"
+length = 0.385
+loop_mode = 1
+step = 0.0642
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0642, 0.1284, 0.1926, 0.2568, 0.321),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [19, 20, 21, 22, 23, 24]
+}
+
+[sub_resource type="Animation" id="Animation_rdeck"]
+resource_name = "idle"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_x332t"]
+resource_name = "land"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+
+[sub_resource type="Animation" id="Animation_6nrai"]
+resource_name = "mount"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [25]
+}
+
+[sub_resource type="Animation" id="Animation_0stb7"]
+resource_name = "rise1"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="Animation" id="Animation_l8c5j"]
+resource_name = "rise2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [11]
+}
+
+[sub_resource type="Animation" id="Animation_x0o06"]
+resource_name = "rise3"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+
+[sub_resource type="Animation" id="Animation_1uhys"]
+resource_name = "run"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_tfxui"]
+resource_name = "wallcling1"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+
+[sub_resource type="Animation" id="Animation_nvbjr"]
+resource_name = "wallcling2"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ptgp5"]
+_data = {
+"RESET": SubResource("Animation_06gl4"),
+"fall1": SubResource("Animation_f50jc"),
+"fall2": SubResource("Animation_74mwx"),
+"fall3": SubResource("Animation_us6kq"),
+"grounddash": SubResource("Animation_aeshu"),
+"idle": SubResource("Animation_rdeck"),
+"land": SubResource("Animation_x332t"),
+"mount": SubResource("Animation_6nrai"),
+"rise1": SubResource("Animation_0stb7"),
+"rise2": SubResource("Animation_l8c5j"),
+"rise3": SubResource("Animation_x0o06"),
+"run": SubResource("Animation_1uhys"),
+"wallcling1": SubResource("Animation_tfxui"),
+"wallcling2": SubResource("Animation_nvbjr")
+}
+
+[node name="Rat" type="CharacterBody2D"]
+
+[node name="EnemyFSMDriver" type="Node" parent="." node_paths=PackedStringArray("EnemyStates")]
+script = ExtResource("1_ebusu")
+EnemyStates = NodePath("../RatStates")
+
+[node name="RatStates" type="Node" parent="." node_paths=PackedStringArray("default_state")]
+script = ExtResource("2_2ah7c")
+default_state = NodePath("Idle")
+
+[node name="Fall" type="Node" parent="RatStates"]
+script = ExtResource("3_w00el")
+
+[node name="Idle" type="Node" parent="RatStates"]
+script = ExtResource("4_gv5sb")
+
+[node name="Walk" type="Node" parent="RatStates"]
+script = ExtResource("5_seiv5")
+
+[node name="Aggro" type="Node" parent="RatStates"]
+
+[node name="Hitstun" type="Node" parent="RatStates"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 2)
+shape = SubResource("RectangleShape2D_008og")
+
+[node name="debug_text" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -35.0
+offset_right = 20.0
+offset_bottom = -9.0
+text = "test"
+
+[node name="AnimationQueue" type="Node" parent="."]
+script = ExtResource("2_8fp0n")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 1.1
+libraries = {
+"": SubResource("AnimationLibrary_ptgp5")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_pwfqg")
