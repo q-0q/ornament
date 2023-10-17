@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 @onready var FSM : FSM = $FSM
 
-	
 func _physics_process(delta):
 	move_and_slide()
 	

@@ -4,11 +4,13 @@ extends State
 @export var time_to_max_speed : float = 0.1
 
 var time_elapsed : float = 0
+var first_frame : bool = false
 
 func _on_enter():
 	time_elapsed = 0
 	FSM.has_dash = true
 	FSM.aq.play("run")
+	first_frame = true
 	
 func _on_exit():
 	pass
@@ -18,8 +20,11 @@ func _on_update(delta):
 		FSM.input_dir.x
 		
 	Player.velocity.x = lerp(desired_speed, float(0), (delta * FSM.ground_stop_factor))
-		
-	FSM._set_face_dir_from_input()
+	
+	if !first_frame:
+		FSM._set_face_dir_from_input()
+	
+	first_frame = false
 	time_elapsed += delta
 	
 func _stateless_condition():

@@ -206,7 +206,7 @@ func _determine_new_state():
 		if $TetherSwing._stateless_condition(): return $TetherSwing
 		
 	if current_state == $GroundAttack1:
-		if current_state.state_locked: return current_state		
+		if current_state.state_locked: return current_state
 		if $GroundAttack2._stateless_condition(): return $GroundAttack2
 		if $Idle._stateless_condition(): return $Idle
 		if $Run._stateless_condition(): return $Run

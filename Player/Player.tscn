@@ -24,7 +24,7 @@
 [ext_resource type="Script" path="res://Player/GroundAttack2.gd" id="20_3exe5"]
 [ext_resource type="Script" path="res://Player/GroundAttack3.gd" id="21_su6cv"]
 [ext_resource type="Shader" path="res://EnemyOutline.gdshader" id="22_arfdl"]
-[ext_resource type="Texture2D" uid="uid://h7uh5n1lfawq" path="res://spider15.png" id="24_8ip6q"]
+[ext_resource type="Texture2D" uid="uid://bv0egpomentb6" path="res://spider16.png" id="23_0tr5q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_73asn"]
 size = Vector2(10, 30)
@@ -166,7 +166,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_u57qw"]
 resource_name = "groundattack1"
 length = 0.2
-step = 0.08
+step = 0.13
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -174,7 +174,7 @@ tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.08),
+"times": PackedFloat32Array(0, 0.13),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [26, 27]
@@ -186,7 +186,7 @@ tracks/1/path = NodePath("PlayerSprite/PlayerAttackHitbox/CollisionShape2D:disab
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.08),
+"times": PackedFloat32Array(0, 0.13),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -213,7 +213,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(12, 1)]
+"values": [Vector2(13.5, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_rcjpb"]
@@ -511,7 +511,7 @@ _data = {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_adkus"]
 shader = ExtResource("22_arfdl")
 shader_parameter/fill = Color(1, 1, 1, 0)
-shader_parameter/color = Color(0.0705882, 0, 0.0823529, 1)
+shader_parameter/color = Color(0.00784314, 0, 0.0117647, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = true
@@ -666,7 +666,7 @@ libraries = {
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_adkus")
-texture = ExtResource("24_8ip6q")
+texture = ExtResource("23_0tr5q")
 hframes = 32
 
 [node name="PlayerAttackHitbox" type="Area2D" parent="PlayerSprite"]

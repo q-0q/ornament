@@ -21,7 +21,7 @@ func _on_exit():
 	pass
 	
 func _on_update(delta):
-	state_locked = (time_elapsed < attack_time)
+	state_locked = (time_elapsed <= attack_time)
 	time_elapsed += delta
 	
 	var dir_mod = 1 if FSM.is_facing_right else -1
