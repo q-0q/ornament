@@ -19,7 +19,7 @@ func _on_update(delta):
 	var desired_speed = run_speed * \
 		FSM.input_dir.x
 		
-	Player.velocity.x = lerp(desired_speed, float(0), (delta * FSM.ground_stop_factor))
+	Player.velocity.x = lerp(desired_speed, 0.0, (1/FSM.ground_stop_factor))
 	
 	if !first_frame:
 		FSM._set_face_dir_from_input()

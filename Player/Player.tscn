@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://Player/Land.gd" id="14_60gnu"]
 [ext_resource type="Script" path="res://Player/FallFromWall.gd" id="14_c6syb"]
 [ext_resource type="Script" path="res://Player/Superjump.gd" id="15_s366p"]
-[ext_resource type="Texture2D" uid="uid://csy8viraoyx1b" path="res://bloom.png" id="16_r0xs2"]
+[ext_resource type="Texture2D" uid="uid://csy8viraoyx1b" path="res://Player/player sprites/bloom.png" id="16_r0xs2"]
 [ext_resource type="Script" path="res://Player/TetherSwing.gd" id="17_6euqv"]
 [ext_resource type="Script" path="res://Player/AnimationQueue.gd" id="18_4kitw"]
 [ext_resource type="Script" path="res://Player/ThrowTether.gd" id="18_idm5g"]
@@ -24,7 +24,7 @@
 [ext_resource type="Script" path="res://Player/GroundAttack2.gd" id="20_3exe5"]
 [ext_resource type="Script" path="res://Player/GroundAttack3.gd" id="21_su6cv"]
 [ext_resource type="Shader" path="res://EnemyOutline.gdshader" id="22_arfdl"]
-[ext_resource type="Texture2D" uid="uid://bv0egpomentb6" path="res://spider16.png" id="23_0tr5q"]
+[ext_resource type="Texture2D" uid="uid://dufre7qupt8ey" path="res://Player/player sprites/spider18.png" id="23_gw3l1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_73asn"]
 size = Vector2(10, 30)
@@ -166,7 +166,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_u57qw"]
 resource_name = "groundattack1"
 length = 0.2
-step = 0.13
+step = 0.06
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -174,10 +174,10 @@ tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.13),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.06, 0.12),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [26, 27]
+"values": [26, 27, 28]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -219,7 +219,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_rcjpb"]
 resource_name = "groundattack2"
 length = 0.2
-step = 0.05
+step = 0.06
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -227,10 +227,10 @@ tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.06, 0.12),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [28, 29]
+"values": [29, 30, 31]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -272,6 +272,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id="Animation_7c2in"]
 resource_name = "groundattack3"
 length = 0.2
+step = 0.06
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -279,10 +280,10 @@ tracks/0/path = NodePath("PlayerSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.06, 0.12),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [30, 31]
+"values": [32, 33, 34]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -558,14 +559,15 @@ default_color = Color(0.603922, 0.603922, 0.603922, 0.752941)
 
 [node name="FSM" type="Node" parent="."]
 script = ExtResource("3_4dmle")
+unlocked_walljump = true
 unlocked_grounddash = true
 coyote_time = 0.1
 attack_delay_length = 0.4
 cast_distance = 7.0
 player_knockback_speed = 200.0
-attack1_enemy_knockback = 85.0
-attack2_enemy_knockback = 130.0
-attack3_enemy_knockback = 200.0
+attack1_enemy_knockback = 140.0
+attack2_enemy_knockback = 240.0
+attack3_enemy_knockback = 300.0
 
 [node name="FallFromAir" type="Node" parent="FSM"]
 script = ExtResource("4_3qf32")
@@ -582,7 +584,6 @@ velocity_curve = SubResource("Curve_2ahxv")
 
 [node name="Run" type="Node" parent="FSM"]
 script = ExtResource("6_apoin")
-run_speed = 130.0
 velocity_curve = SubResource("Curve_t84os")
 
 [node name="Idle" type="Node" parent="FSM"]
@@ -658,7 +659,6 @@ offset_bottom = -9.0
 text = "test"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 1.1
 libraries = {
 "": SubResource("AnimationLibrary_ptgp5")
 }
@@ -666,8 +666,8 @@ libraries = {
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_adkus")
-texture = ExtResource("23_0tr5q")
-hframes = 32
+texture = ExtResource("23_gw3l1")
+hframes = 35
 
 [node name="PlayerAttackHitbox" type="Area2D" parent="PlayerSprite"]
 collision_mask = 3

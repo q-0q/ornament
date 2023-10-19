@@ -1,19 +1,21 @@
-[gd_scene load_steps=29 format=3 uid="uid://dx87eub5cyu17"]
+[gd_scene load_steps=34 format=3 uid="uid://dx87eub5cyu17"]
 
 [ext_resource type="Script" path="res://Enemies/EnemyHurtbox.gd" id="1_als01"]
 [ext_resource type="Script" path="res://Enemies/EnemyFSMDriver.gd" id="1_ebusu"]
 [ext_resource type="Script" path="res://Enemies/Rat/RatStates.gd" id="2_2ah7c"]
 [ext_resource type="Script" path="res://Player/AnimationQueue.gd" id="2_8fp0n"]
-[ext_resource type="Texture2D" uid="uid://deokb4nbkpvpw" path="res://Enemies/Rat/9ffcff7959f71c2334d304b9a6912336.png" id="3_pwfqg"]
 [ext_resource type="Script" path="res://Enemies/Fall.gd" id="3_w00el"]
 [ext_resource type="Script" path="res://Enemies/Rat/Idle.gd" id="4_gv5sb"]
 [ext_resource type="Script" path="res://Enemies/Rat/Walk.gd" id="5_seiv5"]
 [ext_resource type="Script" path="res://Enemies/Stun.gd" id="7_6tpo7"]
+[ext_resource type="Script" path="res://Enemies/Rat/Aggro.gd" id="8_4udfh"]
+[ext_resource type="Script" path="res://Enemies/Rat/Retreat.gd" id="8_qy1ll"]
 [ext_resource type="Shader" path="res://EnemyOutline.gdshader" id="9_dradd"]
 [ext_resource type="Script" path="res://Enemies/HealthManager.gd" id="10_buopu"]
+[ext_resource type="Texture2D" uid="uid://ddl3akwyhb1qa" path="res://Enemies/Rat/rat2.png" id="10_oy585"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_008og"]
-size = Vector2(32, 12)
+size = Vector2(36, 22)
 
 [sub_resource type="Animation" id="Animation_06gl4"]
 length = 0.001
@@ -146,6 +148,23 @@ tracks/0/keys = {
 "values": [25]
 }
 
+[sub_resource type="Animation" id="Animation_2nxrj"]
+resource_name = "rat_idle"
+length = 1.2
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 1, 2]
+}
+
 [sub_resource type="Animation" id="Animation_0stb7"]
 resource_name = "rise1"
 loop_mode = 1
@@ -243,6 +262,39 @@ tracks/0/keys = {
 "values": [18]
 }
 
+[sub_resource type="Animation" id="Animation_bklvu"]
+resource_name = "rat_hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_tlwqc"]
+resource_name = "rat_walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9, 10]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ptgp5"]
 _data = {
 "RESET": SubResource("Animation_06gl4"),
@@ -253,6 +305,9 @@ _data = {
 "idle": SubResource("Animation_rdeck"),
 "land": SubResource("Animation_x332t"),
 "mount": SubResource("Animation_6nrai"),
+"rat_hit": SubResource("Animation_bklvu"),
+"rat_idle": SubResource("Animation_2nxrj"),
+"rat_walk": SubResource("Animation_tlwqc"),
 "rise1": SubResource("Animation_0stb7"),
 "rise2": SubResource("Animation_l8c5j"),
 "rise3": SubResource("Animation_x0o06"),
@@ -264,9 +319,9 @@ _data = {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vlmya"]
 resource_local_to_scene = true
 shader = ExtResource("9_dradd")
-shader_parameter/fill = Color(1, 1, 1, 0)
-shader_parameter/color = Color(0, 0, 0, 1)
-shader_parameter/width = 10.0
+shader_parameter/fill = Color(0.894118, 0.894118, 0.894118, 0)
+shader_parameter/color = Color(0, 0, 0, 0.454902)
+shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = true
 shader_parameter/add_margins = true
@@ -297,12 +352,23 @@ walk_speed = 40.0
 [node name="Stun" type="Node" parent="RatStates"]
 script = ExtResource("7_6tpo7")
 
+[node name="Retreat" type="Node" parent="RatStates"]
+script = ExtResource("8_qy1ll")
+aggro_range = 100.0
+aggro_run_speed = 100.0
+slipperyness = 5.0
+
+[node name="Aggro" type="Node" parent="RatStates"]
+script = ExtResource("8_4udfh")
+aggro_range = 100.0
+aggro_run_speed = 275.0
+slipperyness = 40.0
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4, 2)
+position = Vector2(1, 5)
 shape = SubResource("RectangleShape2D_008og")
 
 [node name="debug_text" type="Label" parent="."]
-visible = false
 offset_left = -19.0
 offset_top = -35.0
 offset_right = 20.0
@@ -313,18 +379,18 @@ text = "test"
 script = ExtResource("2_8fp0n")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-speed_scale = 1.1
 libraries = {
 "": SubResource("AnimationLibrary_ptgp5")
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 material = SubResource("ShaderMaterial_vlmya")
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("3_pwfqg")
+texture = ExtResource("10_oy585")
+hframes = 11
 
 [node name="WhiteoutTimer" type="Timer" parent="Sprite2D"]
 
 [node name="HealthManager" type="Node" parent="."]
 script = ExtResource("10_buopu")
-max_health = 15
+max_health = 35

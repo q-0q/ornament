@@ -14,13 +14,11 @@ func _process(delta):
 	pass
 
 func start_hitstun(length, tree):
-	print("start hitstun")
 	timer.start(length)
 	room = tree
 	room.paused = true
 
 func end_hitstun():
-	print("end hitstun")
 	room.paused = false
 
 func _on_timer_timeout():

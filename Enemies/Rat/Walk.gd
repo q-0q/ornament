@@ -8,6 +8,7 @@ var walk_dir_mod : int
 var max_walk_time : float
 
 func _on_enter():
+	driver.aq.play("rat_walk")
 	var x_diff_from_home = Enemy.position.x - driver.home_position.x
 	
 	if (x_diff_from_home > wander_range):

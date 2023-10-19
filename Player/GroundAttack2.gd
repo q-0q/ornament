@@ -8,6 +8,7 @@ var attack_time : float
 @export var forward_speed : float
 
 func _on_enter():
+	FSM._set_face_dir_from_input()
 	FSM.time_since_last_attack = FSM.input_buffer_length * 2
 	Player.velocity = Vector2.ZERO
 	state_locked = true

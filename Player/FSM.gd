@@ -207,28 +207,28 @@ func _determine_new_state():
 		
 	if current_state == $GroundAttack1:
 		if current_state.state_locked: return current_state
+		if $FallFromGround._stateless_condition(): return $FallFromGround		
 		if $GroundAttack2._stateless_condition(): return $GroundAttack2
 		if $Idle._stateless_condition(): return $Idle
 		if $Run._stateless_condition(): return $Run
 		if $Rise._stateless_condition(): return $Rise
-		if $FallFromGround._stateless_condition(): return $FallFromGround
 		if $GroundDash._stateless_condition(): return $GroundDash
 		
 	if current_state == $GroundAttack2:
 		if current_state.state_locked: return current_state
+		if $FallFromGround._stateless_condition(): return $FallFromGround		
 		if $GroundAttack3._stateless_condition(): return $GroundAttack3
 		if $Idle._stateless_condition(): return $Idle
 		if $Run._stateless_condition(): return $Run
 		if $Rise._stateless_condition(): return $Rise
-		if $FallFromGround._stateless_condition(): return $FallFromGround
 		if $GroundDash._stateless_condition(): return $GroundDash
 	
 	if current_state == $GroundAttack3:
 		if current_state.state_locked: return current_state
+		if $FallFromGround._stateless_condition(): return $FallFromGround		
 		if $Idle._stateless_condition(): return $Idle
 		if $Run._stateless_condition(): return $Run
 		if $Rise._stateless_condition(): return $Rise
-		if $FallFromGround._stateless_condition(): return $FallFromGround
 		if $GroundDash._stateless_condition(): return $GroundDash
 		
 	if current_state == $Land:

@@ -31,7 +31,7 @@ func _on_update(delta):
 	if (FSM.input_dir.x != 0):
 		Player.velocity.x = air_speed * FSM.input_dir.x
 	else:
-		Player.velocity.x = lerp(Player.velocity.x, float(0), (delta * FSM.air_stop_factor))
+		Player.velocity.x = lerp(Player.velocity.x, float(0), (1/FSM.air_stop_factor))
 		
 	
 	time_elapsed += delta

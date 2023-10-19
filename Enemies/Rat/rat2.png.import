@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csy8viraoyx1b"
-path="res://.godot/imported/bloom.png-6e7a64b04d97ee6c45547fb48475493a.ctex"
+uid="uid://ddl3akwyhb1qa"
+path="res://.godot/imported/rat2.png-91cef1efbab890b00eaa29958e1b36b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bloom.png"
-dest_files=["res://.godot/imported/bloom.png-6e7a64b04d97ee6c45547fb48475493a.ctex"]
+source_file="res://Enemies/Rat/rat2.png"
+dest_files=["res://.godot/imported/rat2.png-91cef1efbab890b00eaa29958e1b36b7.ctex"]
 
 [params]
 

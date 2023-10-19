@@ -265,11 +265,8 @@ layer_0/tile_data = PackedInt32Array(-786442, 131072, 0, -720906, 196608, 1, -65
 [node name="WorldEnvironment" type="WorldEnvironment" parent="room"]
 environment = SubResource("Environment_wef0d")
 
-[node name="Rat2" parent="room" instance=ExtResource("3_n0s5d")]
-position = Vector2(97, -26)
-
 [node name="Rat" parent="." instance=ExtResource("3_n0s5d")]
-position = Vector2(321, -161)
+position = Vector2(134, -24)
 
 [node name="Rat2" parent="." instance=ExtResource("3_n0s5d")]
-position = Vector2(52, -143)
+position = Vector2(-112, -21)
