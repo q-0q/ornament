@@ -19,7 +19,7 @@ func _on_enter():
 		walk_dir_mod = 1
 		if randi() % 2 == 0: walk_dir_mod = -1
 	
-	max_walk_time = driver.rng.randf_range(1,3)
+	max_walk_time = driver.rng.randf_range(1,1.5)
 	
 	driver._set_face_dir(walk_dir_mod == -1)
 	

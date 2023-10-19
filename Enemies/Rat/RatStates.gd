@@ -20,7 +20,7 @@ func _determine_new_state():
 	if driver.current_state == $Stun:
 		if $Fall._stateless_condition(): return $Fall
 		if driver.current_state.is_locked: return driver.current_state
-		if $Retreat._stateless_condition(): return $Retreat
+		if $Aggro._stateless_condition(): return $Aggro
 		if $Walk._stateless_condition(): return $Walk
 		if $Idle._stateless_condition(): return $Idle
 		if $Stun._stateless_condition(): return $Stun

@@ -1,5 +1,9 @@
+### immediates
+- [ ] add enemy-to-enemy pushback to prevent enemies stacking on top of eachother
+- [ ] rework stun & knockback, component-ize hurtboxes
+- [ ] finish big rat aggro animation
 ### Six enemy types
-- [ ] [Sewer rat]
+- [ ] [Sewer rat] (big and large reskins)
 	- tutorial enemy for grounded combat
 - [ ] [bat]
 	- tutorial enemy for aerial combat

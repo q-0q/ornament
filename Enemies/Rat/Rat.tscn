@@ -148,6 +148,22 @@ tracks/0/keys = {
 "values": [25]
 }
 
+[sub_resource type="Animation" id="Animation_bklvu"]
+resource_name = "rat_hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 4]
+}
+
 [sub_resource type="Animation" id="Animation_2nxrj"]
 resource_name = "rat_idle"
 length = 1.2
@@ -163,6 +179,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_tlwqc"]
+resource_name = "rat_walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9, 10]
 }
 
 [sub_resource type="Animation" id="Animation_0stb7"]
@@ -262,39 +295,6 @@ tracks/0/keys = {
 "values": [18]
 }
 
-[sub_resource type="Animation" id="Animation_bklvu"]
-resource_name = "rat_hit"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [3, 4]
-}
-
-[sub_resource type="Animation" id="Animation_tlwqc"]
-resource_name = "rat_walk"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [5, 6, 7, 8, 9, 10]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ptgp5"]
 _data = {
 "RESET": SubResource("Animation_06gl4"),
@@ -346,7 +346,7 @@ script = ExtResource("4_gv5sb")
 
 [node name="Walk" type="Node" parent="RatStates"]
 script = ExtResource("5_seiv5")
-wander_range = 15.0
+wander_range = 2.0
 walk_speed = 40.0
 
 [node name="Stun" type="Node" parent="RatStates"]
@@ -355,20 +355,21 @@ script = ExtResource("7_6tpo7")
 [node name="Retreat" type="Node" parent="RatStates"]
 script = ExtResource("8_qy1ll")
 aggro_range = 100.0
-aggro_run_speed = 100.0
+aggro_run_speed = 200.0
 slipperyness = 5.0
 
 [node name="Aggro" type="Node" parent="RatStates"]
 script = ExtResource("8_4udfh")
-aggro_range = 100.0
+aggro_range = 90.0
 aggro_run_speed = 275.0
-slipperyness = 40.0
+slipperyness = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 5)
 shape = SubResource("RectangleShape2D_008og")
 
 [node name="debug_text" type="Label" parent="."]
+visible = false
 offset_left = -19.0
 offset_top = -35.0
 offset_right = 20.0

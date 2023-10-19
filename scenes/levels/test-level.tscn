@@ -266,7 +266,34 @@ layer_0/tile_data = PackedInt32Array(-786442, 131072, 0, -720906, 196608, 1, -65
 environment = SubResource("Environment_wef0d")
 
 [node name="Rat" parent="." instance=ExtResource("3_n0s5d")]
-position = Vector2(134, -24)
+position = Vector2(344, -8)
+
+[node name="Rat4" parent="." instance=ExtResource("3_n0s5d")]
+position = Vector2(-152, -29)
 
 [node name="Rat2" parent="." instance=ExtResource("3_n0s5d")]
 position = Vector2(-112, -21)
+
+[node name="Rat3" parent="." instance=ExtResource("3_n0s5d")]
+position = Vector2(510, -519)
+
+[node name="Rat5" parent="." instance=ExtResource("3_n0s5d")]
+position = Vector2(-123, -52)
+
+[node name="Rat6" parent="." instance=ExtResource("3_n0s5d")]
+position = Vector2(-71, -25)
+
+[node name="Rat7" parent="." instance=ExtResource("3_n0s5d")]
+position = Vector2(-50, -46)
+
+[node name="Rat8" parent="." instance=ExtResource("3_n0s5d")]
+position = Vector2(106, -34)
+
+[node name="Rat9" parent="." instance=ExtResource("3_n0s5d")]
+position = Vector2(76, -48)
+
+[node name="Rat10" parent="." instance=ExtResource("3_n0s5d")]
+position = Vector2(145, -33)
+
+[node name="Rat11" parent="." instance=ExtResource("3_n0s5d")]
+position = Vector2(65, -24)
