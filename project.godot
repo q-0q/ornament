@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Fsm Controller"
-run/main_scene="res://scenes/levels/test-level.tscn"
+run/main_scene="res://scenes/levels/test_main_chamber.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 run/max_fps=60
 boot_splash/show_image=false
@@ -21,6 +21,8 @@ config/icon="res://icon.svg"
 
 HitstunManager="*res://scenes/hitstun_manager.tscn"
 Util="*res://scenes/Util.tscn"
+SceneManager="*res://scenes/SceneManager.tscn"
+SpawnManager="*res://SpawnManager.gd"
 
 [display]
 

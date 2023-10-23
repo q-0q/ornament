@@ -21,7 +21,7 @@ func _on_update(delta):
 		
 	Player.velocity.x = lerp(desired_speed, 0.0, (1/FSM.ground_stop_factor))
 	
-	if !first_frame:
+	if !first_frame and FSM.force_walk_timer <= 0:
 		FSM._set_face_dir_from_input()
 	
 	first_frame = false

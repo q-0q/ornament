@@ -1,6 +1,7 @@
-[gd_scene load_steps=56 format=3 uid="uid://bgn4ui30ou8ox"]
+[gd_scene load_steps=66 format=3 uid="uid://bgn4ui30ou8ox"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_hot88"]
+[ext_resource type="Shader" path="res://vignette.gdshader" id="2_qoafh"]
 [ext_resource type="Script" path="res://Player/TetherManager.gd" id="2_t8042"]
 [ext_resource type="Script" path="res://Player/FSM.gd" id="3_4dmle"]
 [ext_resource type="Script" path="res://Player/FallFromAir.gd" id="4_3qf32"]
@@ -25,9 +26,17 @@
 [ext_resource type="Script" path="res://Player/GroundAttack3.gd" id="21_su6cv"]
 [ext_resource type="Shader" path="res://EnemyOutline.gdshader" id="22_arfdl"]
 [ext_resource type="Texture2D" uid="uid://dufre7qupt8ey" path="res://Player/player sprites/spider18.png" id="23_gw3l1"]
+[ext_resource type="Script" path="res://Player/PlayerAttackHitbox.gd" id="24_afdmi"]
+[ext_resource type="Script" path="res://Player/ScreenFade.gd" id="28_6sb4k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_73asn"]
 size = Vector2(10, 30)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tf3t1"]
+shader = ExtResource("2_qoafh")
+shader_parameter/vignette_intensity = 30.0
+shader_parameter/vignette_opacity = 0.01
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
 [sub_resource type="Curve" id="Curve_lui7i"]
 _data = [Vector2(0, 0), 0.0, 0.38657, 0, 0, Vector2(1, 1), 1.6193, 0.0, 0, 0]
@@ -114,6 +123,30 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(15, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerSprite/PlayerAttackHitbox/GPUParticles2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(23, -2)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PlayerSprite/PlayerAttackHitbox/GPUParticles2D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.150098]
 }
 
 [sub_resource type="Animation" id="Animation_f50jc"]
@@ -215,6 +248,30 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(13.5, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerSprite/PlayerAttackHitbox/GPUParticles2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(23, -2)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PlayerSprite/PlayerAttackHitbox/GPUParticles2D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.150098]
+}
 
 [sub_resource type="Animation" id="Animation_rcjpb"]
 resource_name = "groundattack2"
@@ -268,6 +325,30 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(10, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerSprite/PlayerAttackHitbox/GPUParticles2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(20, 5)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PlayerSprite/PlayerAttackHitbox/GPUParticles2D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.64585]
+}
 
 [sub_resource type="Animation" id="Animation_7c2in"]
 resource_name = "groundattack3"
@@ -320,6 +401,30 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(15, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerSprite/PlayerAttackHitbox/GPUParticles2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(25, -4)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("PlayerSprite/PlayerAttackHitbox/GPUParticles2D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.94604]
 }
 
 [sub_resource type="Animation" id="Animation_aeshu"]
@@ -521,6 +626,66 @@ shader_parameter/add_margins = false
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvikx"]
 size = Vector2(17, 22)
 
+[sub_resource type="Curve" id="Curve_4mf8d"]
+max_value = 100.0
+_data = [Vector2(0, 0), 0.0, 100.0, 0, 1, Vector2(1, 100), 100.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_30kn3"]
+curve = SubResource("Curve_4mf8d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j438h"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+spread = 2.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 356.25
+initial_velocity_max = 400.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 55.209
+damping_max = 55.209
+damping_curve = SubResource("CurveTexture_30kn3")
+angle_min = -285.0
+angle_max = 120.0
+
+[sub_resource type="Animation" id="Animation_oxh3u"]
+resource_name = "fade"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_su3e2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mx0fh"]
+_data = {
+"RESET": SubResource("Animation_su3e2"),
+"fade": SubResource("Animation_oxh3u")
+}
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_hot88")
@@ -545,9 +710,29 @@ shape = SubResource("RectangleShape2D_73asn")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 10)
+offset = Vector2(0, -15)
+limit_left = -200
+limit_right = 200
 position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 drag_vertical_enabled = true
+
+[node name="vignette" type="Panel" parent="Camera2D"]
+visible = false
+z_index = 3
+material = SubResource("ShaderMaterial_tf3t1")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -255.0
+offset_right = 261.0
+offset_bottom = 255.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="TetherManager" type="Node" parent="."]
 script = ExtResource("2_t8042")
@@ -560,14 +745,13 @@ default_color = Color(0.603922, 0.603922, 0.603922, 0.752941)
 [node name="FSM" type="Node" parent="."]
 script = ExtResource("3_4dmle")
 unlocked_walljump = true
-unlocked_grounddash = true
 coyote_time = 0.1
 attack_delay_length = 0.4
 cast_distance = 7.0
 player_knockback_speed = 200.0
-attack1_enemy_knockback = 140.0
-attack2_enemy_knockback = 240.0
-attack3_enemy_knockback = 300.0
+attack1_enemy_knockback = 100.0
+attack2_enemy_knockback = 100.0
+attack3_enemy_knockback = 100.0
 
 [node name="FallFromAir" type="Node" parent="FSM"]
 script = ExtResource("4_3qf32")
@@ -670,12 +854,29 @@ texture = ExtResource("23_gw3l1")
 hframes = 35
 
 [node name="PlayerAttackHitbox" type="Area2D" parent="PlayerSprite"]
-collision_mask = 3
+collision_layer = 16
+collision_mask = 8
+script = ExtResource("24_afdmi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprite/PlayerAttackHitbox"]
 position = Vector2(15, 1)
 shape = SubResource("RectangleShape2D_jvikx")
 disabled = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="PlayerSprite/PlayerAttackHitbox"]
+z_index = 1
+position = Vector2(23, -2)
+rotation = -0.150098
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_j438h")
+lifetime = 0.15
+one_shot = true
+preprocess = 0.08
+explosiveness = 1.0
+randomness = 1.0
+trail_enabled = true
+trail_lifetime = 0.05
 
 [node name="bloom" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.12549)
@@ -687,5 +888,20 @@ texture = ExtResource("16_r0xs2")
 [node name="AnimationQueue" type="Node" parent="."]
 script = ExtResource("18_4kitw")
 
-[connection signal="area_entered" from="PlayerSprite/PlayerAttackHitbox" to="." method="_on_player_attack_hitbox_area_entered"]
-[connection signal="body_entered" from="PlayerSprite/PlayerAttackHitbox" to="." method="_on_player_attack_hitbox_body_entered"]
+[node name="ScreenFade" type="Node" parent="."]
+script = ExtResource("28_6sb4k")
+
+[node name="ColorRect" type="ColorRect" parent="ScreenFade"]
+offset_left = -332.0
+offset_top = -200.0
+offset_right = 352.0
+offset_bottom = 232.0
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenFade"]
+libraries = {
+"": SubResource("AnimationLibrary_mx0fh")
+}
+
+[connection signal="area_entered" from="PlayerSprite/PlayerAttackHitbox" to="PlayerSprite/PlayerAttackHitbox" method="_on_area_entered"]
+[connection signal="body_entered" from="PlayerSprite/PlayerAttackHitbox" to="PlayerSprite/PlayerAttackHitbox" method="_on_body_entered"]

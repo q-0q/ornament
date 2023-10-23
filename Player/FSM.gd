@@ -43,7 +43,6 @@ var time_since_last_attack : float = input_buffer_length * 2
 var attack_timer : float = attack_delay_length * 2
 var last_attack_type : int = 0
 
-
 # bookkeeping
 var current_state : State
 var time_in_current_state : float = 0
@@ -52,6 +51,7 @@ var has_dash : bool = false
 var is_tethered : bool = false
 var tether_distance : float = 10
 var current_knockback : Vector2 = Vector2.ZERO
+var force_walk_timer = 0
 
 func _ready():
 	_set_face_dir_from_input()
@@ -77,6 +77,7 @@ func _process(delta):
 	do_knockback()
 	time_in_current_state += delta
 	attack_timer += delta
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): unlocked_grounddash = true
 	
 func _read_input(delta):
 	# movement
@@ -89,6 +90,8 @@ func _read_input(delta):
 		input_dir += Vector2.UP
 	if Input.is_action_pressed("Down"):
 		input_dir += Vector2.DOWN
+		
+	force_input()
 	
 	# jump
 	if Input.is_action_just_pressed("Jump"): time_since_last_jump = 0
@@ -148,8 +151,7 @@ func _determine_new_state():
 		if $WallStick._stateless_condition(): return $WallStick
 		if $ThrowTether._stateless_condition(): return $ThrowTether
 		if $TetherSwing._stateless_condition(): return $TetherSwing
-		
-		
+			
 	if current_state == $FallFromGround:
 		if $Land._stateless_condition(): return $Land
 		if $Idle._stateless_condition(): return $Idle
@@ -160,7 +162,6 @@ func _determine_new_state():
 		if $WallStick._stateless_condition(): return $WallStick
 		if $ThrowTether._stateless_condition(): return $ThrowTether
 		if $TetherSwing._stateless_condition(): return $TetherSwing
-		
 		
 	if current_state == $LedgeMount:
 		if current_state.state_locked: return $LedgeMount
@@ -313,3 +314,14 @@ func current_enemy_knockback():
 			return attack2_enemy_knockback
 		3: 
 			return attack3_enemy_knockback
+			
+func force_walk_for_time(time):
+	force_walk_timer = time
+	
+func force_input():
+	if force_walk_timer <= 0: return
+	var forced_input : Vector2 = Vector2.ZERO
+	if is_facing_right: forced_input += Vector2.RIGHT
+	else: forced_input += Vector2.LEFT
+	input_dir = forced_input
+	force_walk_timer -= get_process_delta_time()

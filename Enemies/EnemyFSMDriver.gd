@@ -6,7 +6,6 @@ var current_state : EnemyState
 var time_in_current_state : float = 0
 var is_facing_right : bool = true
 var home_position : Vector2
-var current_knockback : Vector2 = Vector2.ZERO
 
 var rng = RandomNumberGenerator.new()
 
@@ -14,6 +13,8 @@ var rng = RandomNumberGenerator.new()
 @onready var aq : AnimationQueue = $"../AnimationQueue"
 @onready var sprite : Sprite2D = $"../Sprite2D"
 @onready var Enemy : CharacterBody2D = $".."
+@onready var force : ForceManager = $"../ForceManager"
+@onready var cliff : CliffDetector = $"../Sprite2D/CliffDetector"
 
 func _ready():
 	
@@ -38,25 +39,16 @@ func _process(delta):
 		time_in_current_state = 0
 	
 	current_state._on_update(delta)
-	do_knockback()
+	force.do_force()
 	time_in_current_state += delta
 	$"../debug_text".text = current_state.name
+	
 	Enemy.move_and_slide()
 	
 func _set_face_dir(dir : bool):
 	if (dir):
 		is_facing_right = true
-		sprite.flip_h = false;
+		sprite.scale.x = 1;
 	else:
 		is_facing_right = false
-		sprite.flip_h = true;
-		
-func do_knockback():
-	current_knockback = current_knockback.lerp(Vector2.ZERO, get_process_delta_time() * 10)
-	Enemy.velocity += current_knockback
-	
-func apply_new_knockback(player_is_facing_right, enemy_knockback_speed):
-	var dir_mod : int
-	if player_is_facing_right: dir_mod = 1
-	else: dir_mod = -1
-	current_knockback.x = enemy_knockback_speed * dir_mod
+		sprite.scale.x = -1;

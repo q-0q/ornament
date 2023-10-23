@@ -8,6 +8,7 @@ var time_elapsed : float = 0
 var state_locked : bool = true
 
 func _on_enter():
+	FSM._set_face_dir_from_input()
 	FSM.aq.play("grounddash")
 	FSM.time_since_last_dash = FSM.input_buffer_length * 2
 	Player.velocity.y = 0

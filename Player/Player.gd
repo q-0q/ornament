@@ -1,10 +1,15 @@
 extends CharacterBody2D
 
+class_name Player
+
 @onready var FSM : FSM = $FSM
 
+var can_enter_doors : bool = true
+
+
 func _ready():
-	#Engine.time_scale = 0.1
-	pass
+	#Engine.time_scale = 0.25
+	Util.player_fsm = FSM
 
 func _physics_process(delta):
 	move_and_slide()
@@ -12,12 +17,3 @@ func _physics_process(delta):
 func _process(delta):
 	$debug_text.text = FSM.current_state.name
 	Util._utils_update_player_positon(position)
-
-func _on_player_attack_hitbox_area_entered(area):
-	print(area.name)
-
-func _on_player_attack_hitbox_body_entered(body):
-	if(body.is_in_group("hurtbox")):
-		body.recieve_hit(2, FSM.current_enemy_knockback(), FSM.is_facing_right)
-		HitstunManager.DO_HITSTUN.emit(0.09, get_tree())
-		FSM.apply_new_knockback()

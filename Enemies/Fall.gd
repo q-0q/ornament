@@ -10,6 +10,7 @@ func _on_exit():
 	
 func _on_update(delta):
 	Enemy.velocity.y = 150
+	Enemy.velocity.x = lerp(Enemy.velocity.x, float(0), 0.05)
 	
 	
 func _stateless_condition():

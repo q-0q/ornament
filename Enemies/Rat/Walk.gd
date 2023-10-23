@@ -28,6 +28,7 @@ func _on_exit():
 	
 func _on_update(delta):
 	Enemy.velocity.x = walk_speed * walk_dir_mod
+	if driver.cliff.will_fall(): max_walk_time = 0
 	
 func _stateless_condition():
 	return true

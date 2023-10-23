@@ -8,5 +8,3 @@ class_name HealthManager
 
 func take_damage (damage):
 	current_health -= damage
-	if current_health <= 0:
-		Enemy.queue_free()

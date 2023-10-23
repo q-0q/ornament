@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7tsigxw3n1u8"]
+
+[ext_resource type="Script" path="res://SceneManager.gd" id="1_0sit6"]
+[ext_resource type="PackedScene" uid="uid://bgn4ui30ou8ox" path="res://Player/Player.tscn" id="2_8rebc"]
+
+[node name="SceneManager" type="Node" node_paths=PackedStringArray("og_player")]
+script = ExtResource("1_0sit6")
+og_player = NodePath("Player")
+
+[node name="Player" parent="." instance=ExtResource("2_8rebc")]

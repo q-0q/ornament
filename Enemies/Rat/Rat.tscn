@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dx87eub5cyu17"]
+[gd_scene load_steps=42 format=3 uid="uid://dx87eub5cyu17"]
 
 [ext_resource type="Script" path="res://Enemies/EnemyHurtbox.gd" id="1_als01"]
 [ext_resource type="Script" path="res://Enemies/EnemyFSMDriver.gd" id="1_ebusu"]
@@ -11,11 +11,15 @@
 [ext_resource type="Script" path="res://Enemies/Rat/Aggro.gd" id="8_4udfh"]
 [ext_resource type="Script" path="res://Enemies/Rat/Retreat.gd" id="8_qy1ll"]
 [ext_resource type="Shader" path="res://EnemyOutline.gdshader" id="9_dradd"]
+[ext_resource type="Script" path="res://Enemies/Rat/Die.gd" id="9_pves4"]
 [ext_resource type="Script" path="res://Enemies/HealthManager.gd" id="10_buopu"]
-[ext_resource type="Texture2D" uid="uid://ddl3akwyhb1qa" path="res://Enemies/Rat/rat2.png" id="10_oy585"]
+[ext_resource type="Texture2D" uid="uid://d3a4vr5fkiscq" path="res://Enemies/Rat/rat4.png" id="12_ogys8"]
+[ext_resource type="Script" path="res://Enemies/EnemyVision.gd" id="13_crr03"]
+[ext_resource type="Script" path="res://ForceManager.gd" id="14_j2uao"]
+[ext_resource type="Script" path="res://Enemies/CliffDetector.gd" id="16_b5j5m"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_008og"]
-size = Vector2(36, 22)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tmjwj"]
+size = Vector2(20, 17)
 
 [sub_resource type="Animation" id="Animation_06gl4"]
 length = 0.001
@@ -146,6 +150,39 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [25]
+}
+
+[sub_resource type="Animation" id="Animation_50tal"]
+resource_name = "rat_aggro"
+length = 0.24
+loop_mode = 1
+step = 0.08
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [11, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_2afbr"]
+resource_name = "rat_die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [14, 15]
 }
 
 [sub_resource type="Animation" id="Animation_bklvu"]
@@ -305,6 +342,8 @@ _data = {
 "idle": SubResource("Animation_rdeck"),
 "land": SubResource("Animation_x332t"),
 "mount": SubResource("Animation_6nrai"),
+"rat_aggro": SubResource("Animation_50tal"),
+"rat_die": SubResource("Animation_2afbr"),
 "rat_hit": SubResource("Animation_bklvu"),
 "rat_idle": SubResource("Animation_2nxrj"),
 "rat_walk": SubResource("Animation_tlwqc"),
@@ -319,16 +358,26 @@ _data = {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vlmya"]
 resource_local_to_scene = true
 shader = ExtResource("9_dradd")
-shader_parameter/fill = Color(0.894118, 0.894118, 0.894118, 0)
+shader_parameter/fill = Color(0, 0, 0, 0)
 shader_parameter/color = Color(0, 0, 0, 0.454902)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = true
 shader_parameter/add_margins = true
 
-[node name="Rat" type="CharacterBody2D" groups=["hurtbox"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nkymq"]
+size = Vector2(124.5, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_008og"]
+size = Vector2(36, 22)
+
+[node name="Rat" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_als01")
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 7.5)
+shape = SubResource("RectangleShape2D_tmjwj")
 
 [node name="EnemyFSMDriver" type="Node" parent="." node_paths=PackedStringArray("EnemyStates")]
 script = ExtResource("1_ebusu")
@@ -360,13 +409,12 @@ slipperyness = 5.0
 
 [node name="Aggro" type="Node" parent="RatStates"]
 script = ExtResource("8_4udfh")
-aggro_range = 90.0
-aggro_run_speed = 275.0
-slipperyness = 20.0
+aggro_range = 105.0
+aggro_run_speed = 250.0
+slipperyness = 50.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 5)
-shape = SubResource("RectangleShape2D_008og")
+[node name="Die" type="Node" parent="RatStates"]
+script = ExtResource("9_pves4")
 
 [node name="debug_text" type="Label" parent="."]
 visible = false
@@ -387,11 +435,43 @@ libraries = {
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_vlmya")
-texture = ExtResource("10_oy585")
-hframes = 11
+texture = ExtResource("12_ogys8")
+hframes = 16
 
 [node name="WhiteoutTimer" type="Timer" parent="Sprite2D"]
 
+[node name="CliffDetector" type="Node2D" parent="Sprite2D"]
+position = Vector2(-4, 2)
+script = ExtResource("16_b5j5m")
+max_drop_height = 30.0
+
+[node name="RayCast2D" type="RayCast2D" parent="Sprite2D/CliffDetector"]
+
+[node name="EnemyVision" type="Area2D" parent="Sprite2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("13_crr03")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/EnemyVision"]
+position = Vector2(-64.75, -9)
+shape = SubResource("RectangleShape2D_nkymq")
+
+[node name="RayCast2D" type="RayCast2D" parent="Sprite2D/EnemyVision"]
+target_position = Vector2(0, 0)
+collision_mask = 5
+
 [node name="HealthManager" type="Node" parent="."]
 script = ExtResource("10_buopu")
-max_health = 35
+max_health = 1
+
+[node name="EnemyHurtbox" type="Area2D" parent="." groups=["hurtbox"]]
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("1_als01")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtbox"]
+position = Vector2(1, 5)
+shape = SubResource("RectangleShape2D_008og")
+
+[node name="ForceManager" type="Node" parent="."]
+script = ExtResource("14_j2uao")
