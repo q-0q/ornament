@@ -29,5 +29,6 @@ func _on_update(delta):
 	
 func _stateless_condition():
 	return (
+		!SceneManager.is_switching_scenes and
 		FSM.input_dir.x != 0 and
 		Player.is_on_floor())

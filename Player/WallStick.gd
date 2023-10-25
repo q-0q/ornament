@@ -9,6 +9,7 @@ func _on_enter():
 	FSM.has_dash = true
 	time_elapsed = 0
 	Player.velocity = Vector2.ZERO
+	#print(FSM.MiddleCast.get_collider().get_path())
 	
 func _on_exit():
 	pass

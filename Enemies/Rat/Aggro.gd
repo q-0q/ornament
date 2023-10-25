@@ -21,7 +21,7 @@ func _on_update(delta):
 	var dir_mod = 1
 	if Util.player_position.x < Enemy.global_position.x: dir_mod = -1
 	cur_run_speed = lerp(cur_run_speed, aggro_run_speed * dir_mod, 1/slipperyness)
-	if Enemy.get_position_delta().x == 0: cur_run_speed = 80
+	#if Enemy.get_position_delta().x == 0: cur_run_speed = 80
 	Enemy.velocity.x = cur_run_speed
 	driver._set_face_dir(dir_mod == -1)
 	if vision.can_see_player(): player_vision_timer = 0

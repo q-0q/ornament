@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Fsm Controller"
-run/main_scene="res://scenes/levels/test_main_chamber.tscn"
+run/main_scene="res://scenes/levels/test_left_chamber.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 run/max_fps=60
 boot_splash/show_image=false
@@ -26,9 +26,9 @@ SpawnManager="*res://SpawnManager.gd"
 
 [display]
 
-window/size/viewport_width=256
-window/size/viewport_height=144
-window/stretch/mode="viewport"
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/stretch/mode="canvas_items"
 
 [input]
 
@@ -80,4 +80,4 @@ Attack={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.0509804, 0, 0.262745, 1)
+environment/defaults/default_clear_color=Color(0.101961, 0.172549, 0.121569, 1)

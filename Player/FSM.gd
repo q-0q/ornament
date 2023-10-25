@@ -64,6 +64,8 @@ func _ready():
 	current_state = default_state
 		
 func _process(delta):
+	#if SceneManager.is_switching_scenes: return
+	
 	_read_input(delta)
 	
 	var new_state = _determine_new_state()
@@ -113,6 +115,10 @@ func _read_input(delta):
 	
 
 func _determine_new_state():
+	
+	# I can do whatever I want
+	if SceneManager.is_switching_scenes:
+		return $Idle
 	
 	if current_state == $Idle:
 		if $Run._stateless_condition(): return $Run

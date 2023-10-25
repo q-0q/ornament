@@ -6,6 +6,7 @@ var current_scene
 
 var current_transition_origin : Doorway
 var current_player : Player
+var is_switching_scenes = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,6 +34,7 @@ func d_on_doorway_entered():
 	call_deferred("switch_scene_via_doorway")
 	
 func switch_scene_via_doorway():
+	is_switching_scenes = true
 	player.FSM.force_walk_for_time(0)
 	current_player.get_parent().remove_child(current_player)
 	var s = load(current_transition_origin.dest_scene_path)
@@ -47,9 +49,12 @@ func switch_scene_via_doorway():
 	player.can_enter_doors = false
 	set_camera_limits()
 	get_tree().current_scene.add_child(player)
+	await(get_tree().create_timer(0.5).timeout)
+	fade_in()
+	is_switching_scenes = false
 	
 func fade_in():
-	player.FSM.force_walk_for_time(0.3)
+	player.FSM.force_walk_for_time(0.33)
 	player.get_node("ScreenFade").fade_in()
 
 func set_camera_limits():

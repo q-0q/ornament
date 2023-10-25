@@ -5,7 +5,7 @@
 
 [sub_resource type="Animation" id="Animation_xjjxn"]
 resource_name = "doorway_transition"
-step = 0.075
+step = 0.05
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -13,17 +13,14 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.375),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"fade_out"
 }, {
 "args": [],
 "method": &"d_on_doorway_entered"
-}, {
-"args": [],
-"method": &"fade_in"
 }]
 }
 
