@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://bgn4ui30ou8ox"]
+[gd_scene load_steps=69 format=3 uid="uid://bgn4ui30ou8ox"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_hot88"]
 [ext_resource type="Shader" path="res://vignette.gdshader" id="2_qoafh"]
@@ -25,18 +25,14 @@
 [ext_resource type="Script" path="res://Player/GroundAttack2.gd" id="20_3exe5"]
 [ext_resource type="Script" path="res://Player/GroundAttack3.gd" id="21_su6cv"]
 [ext_resource type="Shader" path="res://EnemyOutline.gdshader" id="22_arfdl"]
-[ext_resource type="Texture2D" uid="uid://dufre7qupt8ey" path="res://Player/player sprites/spider18.png" id="23_gw3l1"]
+[ext_resource type="Texture2D" uid="uid://cp2ajqlmbug16" path="res://Player/player sprites/spider19.png" id="23_r1heh"]
 [ext_resource type="Script" path="res://Player/PlayerAttackHitbox.gd" id="24_afdmi"]
 [ext_resource type="Script" path="res://Player/ScreenFade.gd" id="28_6sb4k"]
+[ext_resource type="Texture2D" uid="uid://b6cc2pse8wcry" path="res://2d_lights_and_shadows_neutral_point_light.webp" id="29_sgq27"]
+[ext_resource type="TileSet" uid="uid://bvml6ghv8645d" path="res://Player/player_hud.tres" id="30_5txde"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_73asn"]
 size = Vector2(10, 30)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tf3t1"]
-shader = ExtResource("2_qoafh")
-shader_parameter/vignette_intensity = 70.0
-shader_parameter/vignette_opacity = 0.065
-shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
 [sub_resource type="Curve" id="Curve_lui7i"]
 _data = [Vector2(0, 0), 0.0, 0.38657, 0, 0, Vector2(1, 1), 1.6193, 0.0, 0, 0]
@@ -616,8 +612,8 @@ _data = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_adkus"]
 shader = ExtResource("22_arfdl")
-shader_parameter/fill = Color(1, 1, 1, 0)
-shader_parameter/color = Color(0.00784314, 0, 0.0117647, 0.733333)
+shader_parameter/fill = Color(1, 0, 0.517647, 0)
+shader_parameter/color = Color(0, 0, 0.0117647, 0.890196)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/inside = true
@@ -703,6 +699,12 @@ _data = {
 "fade_out": SubResource("Animation_5eaas")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tf3t1"]
+shader = ExtResource("2_qoafh")
+shader_parameter/vignette_intensity = 20.0
+shader_parameter/vignette_opacity = 0.025
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_hot88")
@@ -725,34 +727,6 @@ target_position = Vector2(50, 0)
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_73asn")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, 10)
-offset = Vector2(0, -15)
-limit_left = -200
-limit_right = 200
-position_smoothing_enabled = true
-position_smoothing_speed = 6.0
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_left_margin = 0.05
-drag_right_margin = 0.05
-
-[node name="vignette" type="Panel" parent="Camera2D"]
-z_index = 3
-material = SubResource("ShaderMaterial_tf3t1")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -390.0
-offset_top = -255.0
-offset_right = 391.0
-offset_bottom = 255.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
 [node name="TetherManager" type="Node" parent="."]
 script = ExtResource("2_t8042")
 
@@ -763,6 +737,8 @@ default_color = Color(0.603922, 0.603922, 0.603922, 0.752941)
 
 [node name="FSM" type="Node" parent="."]
 script = ExtResource("3_4dmle")
+unlocked_walljump = true
+unlocked_tether = true
 coyote_time = 0.1
 attack_delay_length = 0.4
 cast_distance = 7.0
@@ -773,7 +749,7 @@ attack3_enemy_knockback = 100.0
 
 [node name="FallFromAir" type="Node" parent="FSM"]
 script = ExtResource("4_3qf32")
-fall_speed = 250.0
+fall_speed = 300.0
 time_to_max_fall_speed = 0.3
 velocity_curve = SubResource("Curve_lui7i")
 air_speed = 110.0
@@ -867,9 +843,10 @@ libraries = {
 }
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
+light_mask = 2
 texture_filter = 1
 material = SubResource("ShaderMaterial_adkus")
-texture = ExtResource("23_gw3l1")
+texture = ExtResource("23_r1heh")
 hframes = 35
 
 [node name="PlayerAttackHitbox" type="Area2D" parent="PlayerSprite"]
@@ -898,7 +875,8 @@ trail_enabled = true
 trail_lifetime = 0.05
 
 [node name="bloom" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.12549)
+modulate = Color(1, 1, 1, 0.0941176)
+light_mask = 2
 z_index = -1
 texture_filter = 1
 scale = Vector2(2.5625, 2.5625)
@@ -907,23 +885,92 @@ texture = ExtResource("16_r0xs2")
 [node name="AnimationQueue" type="Node" parent="."]
 script = ExtResource("18_4kitw")
 
-[node name="ScreenFade" type="Node" parent="."]
+[node name="lights" type="Node2D" parent="."]
+
+[node name="self light" type="PointLight2D" parent="lights"]
+light_mask = 0
+scale = Vector2(0.320313, 0.320313)
+energy = 0.75
+range_item_cull_mask = 2
+shadow_enabled = true
+texture = ExtResource("29_sgq27")
+
+[node name="shadow light" type="PointLight2D" parent="lights"]
+scale = Vector2(0.5, 0.5)
+shadow_enabled = true
+texture = ExtResource("29_sgq27")
+
+[node name="non shadow light" type="PointLight2D" parent="lights"]
+scale = Vector2(0.6875, 0.6875)
+energy = 0.3
+texture = ExtResource("29_sgq27")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ScreenFade" type="Node" parent="CanvasLayer"]
 script = ExtResource("28_6sb4k")
 
-[node name="ColorRect" type="ColorRect" parent="ScreenFade"]
-z_index = 3
-offset_left = -332.0
-offset_top = -200.0
-offset_right = 352.0
-offset_bottom = 232.0
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/ScreenFade"]
+z_index = 100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 color = Color(0, 0, 0, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ScreenFade"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/ScreenFade"]
 speed_scale = 1.3
 method_call_mode = 1
 libraries = {
 "": SubResource("AnimationLibrary_mx0fh")
 }
+
+[node name="vignette" type="Panel" parent="CanvasLayer"]
+z_index = 3
+material = SubResource("ShaderMaterial_tf3t1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.733333)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 16.0
+grow_horizontal = 2
+color = Color(0.0784314, 0.0784314, 0.0784314, 0.258824)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 14.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 0.00392157)
+
+[node name="TileMap" type="TileMap" parent="CanvasLayer/Control"]
+light_mask = 0
+z_index = 3
+tile_set = ExtResource("30_5txde")
+format = 2
+layer_0/tile_data = PackedInt32Array(65538, 65538, 0, 65539, 65538, 0, 65540, 65538, 0, 65541, 65538, 0, 65542, 65538, 0)
 
 [connection signal="area_entered" from="PlayerSprite/PlayerAttackHitbox" to="PlayerSprite/PlayerAttackHitbox" method="_on_area_entered"]
 [connection signal="body_entered" from="PlayerSprite/PlayerAttackHitbox" to="PlayerSprite/PlayerAttackHitbox" method="_on_body_entered"]

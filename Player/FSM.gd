@@ -53,6 +53,8 @@ var tether_distance : float = 10
 var current_knockback : Vector2 = Vector2.ZERO
 var force_walk_timer = 0
 
+var input_lock_time : float = 0
+
 func _ready():
 	_set_face_dir_from_input()
 	tether_distance = $"../TetherManager".max_tether_distance
@@ -82,6 +84,15 @@ func _process(delta):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): unlocked_grounddash = true
 	
 func _read_input(delta):
+	
+	# handle input lock
+	if input_lock_time > 0.01:
+		input_lock_time -= delta
+		input_dir = Vector2.ZERO
+		return
+	input_lock_time = 0
+		
+	
 	# movement
 	input_dir = Vector2.ZERO
 	if Input.is_action_pressed("Left"):
@@ -281,14 +292,14 @@ func _set_face_dir(dir : bool):
 	if (dir):
 		is_facing_right = true
 		BottomCast.target_position.x = cast_distance
-		TopCast.target_position.x = cast_distance
+		TopCast.target_position.x = cast_distance * 1.5
 		MiddleCast.target_position.x = cast_distance
 		TetherCast.target_position.x = tether_distance
 		PlayerSprite.scale.x = 1;
 	else:
 		is_facing_right = false
 		BottomCast.target_position.x = -cast_distance
-		TopCast.target_position.x = -cast_distance
+		TopCast.target_position.x = -cast_distance * 1.5
 		MiddleCast.target_position.x = -cast_distance
 		TetherCast.target_position.x = -tether_distance
 		PlayerSprite.scale.x = -1;
@@ -331,3 +342,6 @@ func force_input():
 	else: forced_input += Vector2.LEFT
 	input_dir = forced_input
 	force_walk_timer -= get_process_delta_time()
+	
+func set_input_lock(duration):
+	input_lock_time = duration

@@ -30,7 +30,7 @@ func _on_update(delta):
 func _stateless_condition():
 	return (
 		FSM.unlocked_walljump and
-		(FSM.MiddleCast.is_colliding() or FSM.TopCast.is_colliding() or FSM.BottomCast.is_colliding()) and
+		(FSM.MiddleCast.is_colliding() or FSM.BottomCast.is_colliding()) and
 		FSM.input_dir.x != 0 and
 		((FSM.input_dir.x == 1) == FSM.is_facing_right)
 		)

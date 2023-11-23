@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7tsigxw3n1u8"]
+
+[ext_resource type="Script" path="res://globals/SceneManager.gd" id="1_0sit6"]
+[ext_resource type="PackedScene" uid="uid://bgn4ui30ou8ox" path="res://Player/Player.tscn" id="2_8rebc"]
+
+[sub_resource type="Animation" id="Animation_xjjxn"]
+resource_name = "doorway_transition"
+step = 0.05
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"fade_out"
+}, {
+"args": [],
+"method": &"d_on_doorway_entered"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0aqe5"]
+_data = {
+"doorway_transition": SubResource("Animation_xjjxn")
+}
+
+[node name="SceneManager" type="Node" node_paths=PackedStringArray("og_player")]
+script = ExtResource("1_0sit6")
+og_player = NodePath("Player")
+
+[node name="Player" parent="." instance=ExtResource("2_8rebc")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0aqe5")
+}
